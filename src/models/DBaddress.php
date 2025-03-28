@@ -14,7 +14,14 @@ class DBaddress {
         $stmt->execute();
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-    public function insertAddress($){
-
+    public function insertAddress($num_address, $street_address, $country_adress, $postal_address, $city_address, $complement_address){
+        $stmt = $this->pdo->prepare("INSERT INTO address (num_address, street_address, country_adress, postal_address, city_address, complement_address) VALUES (:num_address, :street_address, :country_adress, :postal_address, :city_address, :complement_address)");
+        $stmt->bindParam(':num_address', $num_address);
+        $stmt->bindParam(':street_address', $street_address);
+        $stmt->bindParam(':country_adress', $country_adress);
+        $stmt->bindParam(':postal_address', $postal_address);
+        $stmt->bindParam(':city_address', $city_address);
+        $stmt->bindParam(':complement_address', $complement_address);
+        return $stmt->execute();
     }
 }
