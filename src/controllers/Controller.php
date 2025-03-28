@@ -14,7 +14,5 @@ class Controller {
 
     public function HomePage() {
         echo $this->twig->render('home.twig.html');
-        //$pdo = new DataBase();
-        //$jobOffers = $pdo->getJobOffers();
     }
 }
