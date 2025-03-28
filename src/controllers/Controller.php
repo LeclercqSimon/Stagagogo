@@ -1,18 +1,9 @@
 <?php
-
 namespace App\Controllers;
 
-use Twig\Environment;
-use App\models\DataBase;
+abstract class Controller {
+    
+    protected $model = null;
 
-class Controller {
-    private $twig;
-
-    public function __construct(Environment $twig) {
-        $this->twig = $twig;
-    }
-
-    public function HomePage() {
-        echo $this->twig->render('home.twig.html');
-    }
+    protected $templateEngine = null;
 }

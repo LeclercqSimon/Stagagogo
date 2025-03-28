@@ -1,7 +1,7 @@
 <?php
 namespace App\models;
 
-class DNnote {
+class DBnote {
     private $pdo;
 
     public function __construct(){  
