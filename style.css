@@ -1,0 +1,87 @@
+body{
+    font-family: Inter, sans-serif;
+
+}
+
+.navbar {
+    background-color: #4ea6ff;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    opacity: 90%;
+    margin-bottom: 200px;
+}
+
+.logo img {
+    height: 60px; 
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
+}
+
+.btn-login {
+    color: #ffa2e8;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+
+.btn-signup {
+    color: black;
+    background-color: #ffdeac;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+
+.navbar ul li a:hover, .btn-login:hover, .logo img:hover {
+    background-color: rgba(255, 255, 255, 0.096);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-signup:hover{
+    background-color: #ffa2e8;
+    color: #ffdeac;
+}
+
+footer {
+    background-color: #ffa2e8;
+    font-style: italic;
+    display: flex;
+    justify-content: center;
+    margin-left: -10px;
+    margin-bottom: -10px;
+}
+
+footer p{
+    color: #ffdeac;
+    font-weight: bold;
+}
+footer p a{
+    color: #ffdeac;
+    font-weight: bold;
+}

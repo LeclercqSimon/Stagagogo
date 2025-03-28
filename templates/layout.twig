@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Stagagogo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+
+        <div class="logo">
+            <a href="#"><img src="logo.png" alt="Logo Stagagogo"></a>
+        </div>
+        <ul>
+            <li><a href="homepage.twig.html">Entreprises</a></li>
+            <li><a href="#">Offres</a></li>
+            <li><a href="#">Pilote</a></li>
+            <li><a href="#">Etudiant</a></li>
+            <li><a href="#">Wish-list</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <a href="#" class="btn-login">Se connecter</a>
+            <a href="#" class="btn-signup">S'inscrire</a>
+        </div>
+    </nav>
+    <br>
+    <br>
+    {% block content %}
+    {% endblock %}
+</body>
+<footer>
+    <p>©2025 - Tous droits réservés - <a href="mentions_legales.html">Stagagogo</a></p>
+</footer>
+
+</html>
