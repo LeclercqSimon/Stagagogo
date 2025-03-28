@@ -85,3 +85,44 @@ footer p a{
     color: #ffdeac;
     font-weight: bold;
 }
+
+.about {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about h1 {
+    color: #4ea6ff;
+    text-align: center;
+    font-size: 28px;
+}
+
+.about h2 {
+    color: #4ea6ff;
+    font-size: 22px;
+    margin-top: 20px;
+}
+
+.about p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.about ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.about ul li {
+    background-color: #ffa2e8;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
