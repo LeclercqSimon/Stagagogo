@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Stagagogo</title>
   <link rel="stylesheet" href="style.css">
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
     <nav class="navbar">
@@ -20,8 +20,37 @@
             <li><a href="/?uri=Wishlist">Wish-list</a></li>
         </ul>
         <div class="auth-buttons">
-            <a href="#" class="btn-login">Se connecter</a>
-            <a href="#" class="btn-signup">S'inscrire</a>
+            <button class="btn-login" onclick='openModalLogin()'>Se connecter</button>
+            <div id="loginModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModalLogin()">&times;</span>
+                    <h2>Connexion</h2>
+                    <form method="POST" action="/" onsubmit="submitForm(event)">
+                        <input type="email" id="email" name="mail" placeholder="Email" required>
+                        <input type="password" id="password" name ="pwd" placeholder="Mot de passe" required>
+                        <button type="submit" class="submit-btn">Connexion</button>
+                    </form>
+                </div>
+            </div>
+            <button class="btn-signup" onclick='openModalSignup()'>S'inscrire</button>
+            <div id="signupModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModalSignup()">&times;</span>
+                    <h2>Inscription</h2>
+                    <form method="POST" action="/" onsubmit="submitForm(event)">
+                        <input type="name" id="firstname" name="firstname" placeholder="Nom" required>
+                        <input type="name" id="name" name="name" placeholder="Prénom" required>
+                        <input type="email" id="email" name="mail" placeholder="Email" required>
+                        <input type="password" id="password" name ="pwd" placeholder="Mot de passe" required>
+                        <input type="phone" id="phone" name="phone" placeholder="Téléphone" required>
+                        <input type="country" id="country" name="country" placeholder="Pays" required>
+                        <input type="street" id="street" name="street" placeholder="Rue" required>
+                        <input type="number" id="num" name="num" placeholder="Numéro de rue" required>
+                        <input type="postal" id="postal" name="postal" placeholder="Code postal" required>
+                        <input type="city" id="city" name="city" placeholder="Ville" required>
+                        <button type="submit" class="submit-btn">S'inscrire</button>
+                    </form>
+                </div>
         </div>
     </nav>
     <br>

@@ -28,6 +28,8 @@ switch ($uri) {
     case '/':
         $controller = new HomeController($twig);
         $controller->HomePage();
+        $controller->Login();
+        $controller->Signup();
         break;
     case 'CGU':
         $controller = new CGUController($twig);
