@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<header>
     <nav class="navbar">
 
         <div class="logo">
@@ -26,8 +26,9 @@
                     <span class="close" onclick="closeModalLogin()">&times;</span>
                     <h2>Connexion</h2>
                     <form method="POST" action="/" onsubmit="submitForm(event)">
-                        <input type="email" id="email" name="mail" placeholder="Email" required>
-                        <input type="password" id="password" name ="pwd" placeholder="Mot de passe" required>
+                        <input type="hidden" name="action" value="login">
+                        <input type="email" id="login-mail" name="mail" placeholder="Email" required>
+                        <input type="pwd" id="login-pwd" name ="pwd" placeholder="Mot de passe" required>
                         <button type="submit" class="submit-btn">Connexion</button>
                     </form>
                 </div>
@@ -36,25 +37,43 @@
             <div id="signupModal" class="modal">
                 <div class="modal-content">
                     <span class="close" onclick="closeModalSignup()">&times;</span>
-                    <h2>Inscription</h2>
-                    <form method="POST" action="/" onsubmit="submitForm(event)">
-                        <input type="name" id="firstname" name="firstname" placeholder="Nom" required>
-                        <input type="name" id="name" name="name" placeholder="Prénom" required>
-                        <input type="email" id="email" name="mail" placeholder="Email" required>
-                        <input type="password" id="password" name ="pwd" placeholder="Mot de passe" required>
-                        <input type="phone" id="phone" name="phone" placeholder="Téléphone" required>
-                        <input type="country" id="country" name="country" placeholder="Pays" required>
-                        <input type="street" id="street" name="street" placeholder="Rue" required>
-                        <input type="number" id="num" name="num" placeholder="Numéro de rue" required>
-                        <input type="postal" id="postal" name="postal" placeholder="Code postal" required>
-                        <input type="city" id="city" name="city" placeholder="Ville" required>
-                        <button type="submit" class="submit-btn">S'inscrire</button>
-                    </form>
+            
+                    <!-- Étape 1 -->
+                    <div id="signup-step1">
+                        <h2>Inscription - Étape 1</h2>
+                        <form id="form-step1" onsubmit="submitForm(event)">
+                            <input type="text" id="firstname" name="firstname" placeholder="Nom" required>
+                            <input type="text" id="name" name="name" placeholder="Prénom" required>
+                            <input type="email" id="signin-mail" name="mail" placeholder="Email" required>
+                            <input type="password" id="signin-pwd" name="pwd" placeholder="Mot de passe" required>
+                            <button type="button" class="submit-btn" onclick="goToStep2()">Suivant</button>
+                        </form>
+                    </div>
+            
+                    <!-- Étape 2 -->
+                    <div id="signup-step2" style="display: none;">
+                        <h2>Inscription - Étape 2</h2>
+                        <form id="form-step2" method="POST" action="/">
+                            <button type="button"  onclick="goToStep1()">Retour</button>
+                            <input type="hidden" name="action" value="signup">
+                            <input type="hidden" id="hidden-firstname" name="firstname">
+                            <input type="hidden" id="hidden-name" name="name">
+                            <input type="hidden" id="hidden-mail" name="mail">
+                            <input type="hidden" id="hidden-pwd" name="pwd">
+                            <input type="text" id="phone" name="phone" placeholder="Téléphone" required>
+                            <input type="text" id="country" name="country" placeholder="Pays" required>
+                            <input type="text" id="street" name="street" placeholder="Rue" required>
+                            <input type="number" id="num" name="num" placeholder="Numéro de rue" required>
+                            <input type="text" id="postal" name="postal" placeholder="Code postal" required>
+                            <input type="text" id="city" name="city" placeholder="Ville" required>
+                            <button type="submit" class="submit-btn">S'inscrire</button>
+                        </form>
+                    </div>
                 </div>
-        </div>
+            </div>
     </nav>
-    <br>
-    <br>
+</header>
+<body>
     {% block content %}
     {% endblock %}
 </body>

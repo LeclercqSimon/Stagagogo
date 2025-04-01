@@ -1,15 +1,11 @@
-@font-face {
-    font-family: "Pretendo";
-    src: url("pretendo.ttf") format("truetype");
-}
-
 body{
     font-family: Inter, sans-serif;
-
+    color: #071739;
+    padding-top: 50px;
 }
 
 .navbar {
-    background-color: #4ea6ff;
+    background-color: #709fdc;
     width: 100%;
     position: fixed;
     display: flex;
@@ -28,60 +24,90 @@ body{
 .navbar ul {
     list-style: none;
     display: flex;
-    justify-content: center;
-    flex-grow: 1;
+    justify-content: center; /* Centre les éléments de la liste */
+    align-items: center; /* Centre verticalement les éléments de la liste */
+    flex-grow: 1; /* Permet aux éléments de la liste de s'étendre */
+    padding: 5px; 
 }
 
+.navbar ul li a { 
+    font-size: 20px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    color: white; 
+    text-decoration: none; /* Supprime le soulignement par défaut */
+    position: relative; /* Nécessaire pour positionner le pseudo-élément */
+    padding: 20px;
+}
 
-.navbar ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
+.navbar ul li a::after {
+    content: ''; /* Crée un pseudo-élément vide */
+    position: absolute;
+    bottom: 10px; /* Positionne le soulignement juste sous le texte */
+    left: 50%; /* Positionne le début du soulignement au centre */
+    transform: translateX(-50%) scaleX(1); /* Centre le soulignement et applique une échelle initiale */
+    width: 8px; /* Largeur initiale du soulignement */
+    height: 2px; /* Épaisseur du soulignement */
+    border-radius: 2px;
+    background-color: #ffffff; /* Couleur du soulignement */
+    transform-origin: center; /* Point de départ de l'animation */
+    transition: transform 0.3s ease; /* Animation fluide */
+}
+
+.navbar ul li a:hover::after {
+    transform: translateX(-50%) scaleX(7); /* Agrandit le soulignement uniformément des deux côtés */
 }
 
 .auth-buttons {
     display: flex;
     gap: 10px;
     margin-right: 20px;
-    font-family: 'Orbitron', sans-serif;
 }
 
 .btn-login {
-    color: #ffa2e8;
+    color: #ffffff;
     text-decoration: none;
-    padding: 10px 15px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    padding: 5px 10px;
+    padding-top:1px;
     font-weight: bold;
+    font-size: 20px;
     border-radius: 20px;
+    border: #ffffff, 3px solid;
+    background-color: #709fdc;
 }
 
 .btn-signup {
-    color: black;
-    background-color: #ffdeac;
+    color: #ffffff;
+    background-color: #071739;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
     text-decoration: none;
-    padding: 10px 15px;
+    padding: 5px 10px;
+    padding-top:1px;
     border-radius: 20px;
     font-weight: bold;
+    font-size: 20px;
+    border: #ffffff, 3px solid;
 }
 
 
-.navbar ul li a:hover, .btn-login:hover, .logo img:hover {
+.navbar ul li a:hover, .logo img:hover {
     background-color: rgba(255, 255, 255, 0.096);
     cursor: pointer;
     border-radius: 5px;
 }
 
 .btn-signup:hover{
-    background-color: #ffa2e8;
-    color: #ffdeac;
+    background-color: #709fdc;
+    color: #ffffff;
 }
 
 .btn-login:hover{
-    background-color: #ffa2e8;
-    color: #ffdeac;
+    background-color: #9fc5fa;
+    color: #ffffff;
 }
 
 footer {
-    background-color: #ffa2e8;
+    background-color: #709fdc;
     font-style: italic;
     display: flex;
     justify-content: center;
@@ -90,14 +116,14 @@ footer {
 }
 
 footer p{
-    color: #ffdeac;
+    color: #b9d5fd;
     font-weight: bold;
 }
 footer p a{
-    color: #ffdeac;
+    color: #b9d5fd;
     font-weight: bold;
 }
-/*--------------------------------------------------------------------------------------------------------------*/
+/*------------------------------------------------signup/login------------------------------------------------------------*/
 
 /* Style du bouton */
 .btn {
@@ -148,7 +174,7 @@ input {
 }
 
 .submit-btn {
-    background-color: green;
+    background-color: #071739;
     color: white;
     padding: 10px;
     width: 100%;

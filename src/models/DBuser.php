@@ -29,10 +29,11 @@ class DBuser{
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':firstname', $firstname);
         $stmt->bindParam(':mail', $mail);
-        $stmt->bindParam(':pwd', $hashedPwd);  //mettre un pswd hash
+        $stmt->bindParam(':pwd', $hashedPwd); 
         $stmt->bindParam(':phone', $phone);
         $stmt->bindParam(':status', $status);
         $stmt->bindParam(':id_address', $id_address);
+        echo "L'utilisateur a été ajouté avec succès. ✅";
         return $stmt->execute();
     }
 

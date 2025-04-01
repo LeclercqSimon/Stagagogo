@@ -25,8 +25,12 @@ switch ($uri) {
     case '/':
         $controller = new HomeController($twig);
         $controller->HomePage();
-        $controller->Login();
-        $controller->Signup();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {
+            $controller->Login();
+        }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'signup') {
+            $controller->Signup();
+        }
         break;
     case 'CGU':
         $controller = new CGUController($twig);
