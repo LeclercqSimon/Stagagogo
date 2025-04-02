@@ -27,4 +27,17 @@ class DBaddress {
         $id_address =$this->pdo->lastInsertId();
         return $id_address;
     }
+    public function addressCompany($tab){
+        foreach($tab as $key => $id_address) {
+            $stmt = $this->pdo->prepare("SELECT * FROM address WHERE id_address = :id_address");
+            $stmt->bindParam(':id_address', $value['id_address']);
+            $stmt->execute();
+            $address = $stmt->fetch(\PDO::FETCH_ASSOC);
+            if ($address) {
+                $tab[$key]['address'] = $address;
+            } else {
+                $tab[$key]['address'] = null;
+            }
+        }
+    }
 }

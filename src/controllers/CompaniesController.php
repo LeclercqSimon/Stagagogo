@@ -1,17 +1,19 @@
 <?php
 namespace App\Controllers;
 use App\Models\DBcompany;
+use App\Models\DBaddress;
 class CompaniesController extends Controller{
 
     public function __construct($templateEngine) {
         $this->model = new DBcompany();
-        $this->model2 = null;
+        $this->model2 = new DBaddress();
         $this->templateEngine = $templateEngine;
     }
 
     public function CompaniesPage() {
         echo $this->templateEngine->render('companies.twig.html', [
-            'companies' => $this->model->getCompanies()
+            'companies' => $this->model->getCompanies(),
+            'address' => $this->model2->addressCompany($this->model->getCompanies()),
         ]);
     }
 

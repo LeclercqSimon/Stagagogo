@@ -8,6 +8,7 @@ use App\Controllers\CompaniesController;
 use App\Controllers\OfferController;
 use App\Controllers\ProfilController;
 use App\Controllers\WishlistController;
+use App\Controllers\FooterController;
 
 $loader = new \Twig\Loader\FilesystemLoader('templates');
 $twig = new \Twig\Environment($loader, [
@@ -32,10 +33,6 @@ switch ($uri) {
             $controller->Signup();
         }
         break;
-    case 'CGU':
-        $controller = new CGUController($twig);
-        $controller->CGUPage();
-        break;
     case 'Companies':
         $controller = new CompaniesController($twig);
         $controller->CompaniesPage();
@@ -51,6 +48,22 @@ switch ($uri) {
     case 'Wishlist':
         $controller = new WishlistController($twig);
         $controller->WishlistPage();
+        break;
+    case 'About':
+        $controller = new FooterController($twig);
+        $controller->AboutPage();
+        break;
+    case 'Cookies':
+        $controller = new FooterController($twig);
+        $controller->CookiesPage();
+        break;
+    case 'Confidentialite':
+        $controller = new FooterController($twig);
+        $controller->ConfidentialitePage();
+        break;
+    case 'CGU':
+        $controller = new FooterController($twig);
+        $controller->CGUPage();
         break;
     default:
         header("HTTP/1.0 404 Not Found");
