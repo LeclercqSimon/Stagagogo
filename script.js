@@ -46,9 +46,20 @@ function goToStep2() {
     document.getElementById('signup-step2').style.display = 'block';
 }
 
-function closeModal(){
-    document.getElementById('modal-container').style.display = 'none';
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'flex'; // Affiche la modal
+    } else {
+        console.error(`Modal with ID ${modalId} not found.`);
+    }
 }
-function openModal(){
-    document.getElementById('modal-container').style.display = 'block';
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none'; // Cache la modal
+    } else {
+        console.error(`Modal with ID ${modalId} not found.`);
+    }
 }
