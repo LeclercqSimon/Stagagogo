@@ -45,3 +45,10 @@ function goToStep2() {
     document.getElementById('signup-step1').style.display = 'none';
     document.getElementById('signup-step2').style.display = 'block';
 }
+
+function closeModal(){
+    document.getElementById('modal-container').style.display = 'none';
+}
+function openModal(){
+    document.getElementById('modal-container').style.display = 'block';
+}

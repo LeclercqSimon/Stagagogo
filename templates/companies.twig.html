@@ -3,6 +3,46 @@
 {% block title %}Entreprises - Stagagogo{% endblock %}
 
 {% block content %}
-    <h2>Bienvenue sur mon site !</h2>
-    <p>Ceci est la page Entreprises.</p>
+
+    <h1 style="text-align: center; color: #333;">Entreprises qui recrutent</h1>
+    <div class="container">
+        <div class="card">
+            <img src="img/logo_bleu.png" alt="Thales">
+            <h3>Thales</h3>
+            <p>Leader mondial dans le domaine de l'aérospatial, de la défense, de la sécurité et des transports.</p>
+            <button class="btn-card" onclick="openModal()">Voir plus</button>
+        </div>
+    </div>
+    <div class ='modal-container' id="modal-container">
+        <div class="modal-card">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>NAME</h2>
+            <div class="modal-text">
+                <p><strong>Description :</strong> {{ offer.descr_offer }}</p>
+                <p>VILLE : </p>
+                <p>SECTEUR : </p>
+                <p>MAIL : </p>
+                <p>TÉLÉPHONE : </p>
+                <p>NOMBRE D'OFFRES : </p>
+                <p>SIRET : </p>
+            </div>
+        </div>
+    </div>
+    <h1>Liste des Offres</h1>
+    <div class="container">
+        {% for offer in offers %}
+        <div class="card">
+            <h2>{{ offer.title_offer }}</h2>
+            <p><strong>ID :</strong> {{ offer.id_offer }}</p>
+            <p><strong>Date de publication :</strong> {{ offer.publication_offer }}</p>
+            <p><strong>Description :</strong> {{ offer.descr_offer }}</p>
+            <p><strong>Salaire :</strong> {{ offer.salary_offer }}</p>
+            <p><strong>Statut :</strong> {{ offer.offer_status }}</p>
+            <p><strong>Type de contrat :</strong> {{ offer.contract_offer }}</p>
+            <p><strong>Secteur :</strong> {{ offer.sector_offer }}</p>
+            <p><strong>Vues :</strong> {{ offer.views_offer }}</p>
+            <p><strong>Candidats :</strong> {{ offer.candidates_offer }}</p>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}

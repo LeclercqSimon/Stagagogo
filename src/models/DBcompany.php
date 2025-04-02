@@ -8,6 +8,11 @@ class DBcompany{
     public function __construct(){  
         $this->pdo = new \PDO('mysql:host=localhost;dbname=stagagogo', 'root', '');
     }
+    public function getCompanies(){
+        $stmt = $this->pdo->prepare("SELECT * FROM company");
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
     public function getCompany($companyId){
         $stmt = $this->pdo->prepare("SELECT * FROM company WHERE id_company = :companyId");
         $stmt->bindParam(':companyId', $companyId);

@@ -33,4 +33,10 @@ class DBoffer{
         $stmt->bindParam(':candidates', $candidates);
         return $stmt->execute();
     }
+
+    function getOffers(){
+        $stmt = $this->pdo->prepare("SELECT * FROM offer");
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

@@ -3,6 +3,21 @@
 {% block title %}Offres- Stagagogo{% endblock %}
 
 {% block content %}
-    <h2>Bienvenue sur mon site !</h2>
-    <p>Ceci est la page Offres.</p>
+    <h1>Liste des Offres</h1>
+    <div class="container">
+        {% for offer in offers %}
+        <div class="card">
+            <h2>{{ offer.title_offer }}</h2>
+            <p><strong>ID :</strong> {{ offer.id_offer }}</p>
+            <p><strong>Date de publication :</strong> {{ offer.publication_offer }}</p>
+            <p><strong>Description :</strong> {{ offer.descr_offer }}</p>
+            <p><strong>Salaire :</strong> {{ offer.salary_offer }}</p>
+            <p><strong>Statut :</strong> {{ offer.offer_status }}</p>
+            <p><strong>Type de contrat :</strong> {{ offer.contract_offer }}</p>
+            <p><strong>Secteur :</strong> {{ offer.sector_offer }}</p>
+            <p><strong>Vues :</strong> {{ offer.views_offer }}</p>
+            <p><strong>Candidats :</strong> {{ offer.candidates_offer }}</p>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}
