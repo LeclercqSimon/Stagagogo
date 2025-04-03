@@ -3,20 +3,29 @@
 {% block title %}Offres- Stagagogo{% endblock %}
 
 {% block content %}
-    <h1>Liste des Offres</h1>
+    <h1 class="title">LISTE DES OFFRES</h1>
     <div class="container">
         {% for offer in offers %}
         <div class="card">
-            <h2>{{ offer.title_offer }}</h2>
-            <p><strong>ID :</strong> {{ offer.id_offer }}</p>
-            <p><strong>Date de publication :</strong> {{ offer.publication_offer }}</p>
+            <h2>{{ offer.title_offer }} - {{ offer.name_company }}</h2>
             <p><strong>Description :</strong> {{ offer.descr_offer }}</p>
-            <p><strong>Salaire :</strong> {{ offer.salary_offer }}</p>
+            <p><strong>Salaire :</strong> {{ offer.salary_offer }}€/an</p>
             <p><strong>Statut :</strong> {{ offer.offer_status }}</p>
             <p><strong>Type de contrat :</strong> {{ offer.contract_offer }}</p>
             <p><strong>Secteur :</strong> {{ offer.sector_offer }}</p>
             <p><strong>Vues :</strong> {{ offer.views_offer }}</p>
             <p><strong>Candidats :</strong> {{ offer.candidates_offer }}</p>
+            <p><strong>Date de publication :</strong> {{ offer.publication_offer }}</p>
+            <button onclick="openModalPost('post-{{offer.id_offer}}')">Postuler</button>
+        </div>
+        <div class="modal-post" id="post-{{offer.id_offer}}">
+            <form method="POST">
+                <span class="close" onclick="closeModalPost('post-{{offer.id_offer}}')">&times;</span>
+                <h2>Postuler à l'offre : {{ offer.title_offer }} - {{ offer.name_company }}</h2>
+                <label for="cv">CV :</label>
+                <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" required>
+                <button type="submit">Envoyer</button>
+            </form>
         </div>
         {% endfor %}
     </div>

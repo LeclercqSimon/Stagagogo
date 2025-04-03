@@ -63,3 +63,15 @@ function closeModal(modalId) {
         console.error(`Modal with ID ${modalId} not found.`);
     }
 }
+
+function openModalPost(modalID){
+    document.getElementById(modalID).style.display = "flex";
+}
+
+function closeModalPost(modalID){
+    document.getElementById(modalID).style.display = "none";
+}
+
+function toggleMenu() {
+    document.querySelector(".navbar ul").classList.toggle("active");
+}

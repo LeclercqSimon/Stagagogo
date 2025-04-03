@@ -3,6 +3,66 @@
 {% block title %}Profil - Stagagogo{% endblock %}
 
 {% block content %}
-    <h2>Bienvenue sur mon site !</h2>
-    <p>Ceci est la page Profil.</p>
+    <div class="profil-container">
+        <div class="profil-card" data-status="{{ user.status }}">
+            <h2>{{ user.name }} {{ user.firstname }}</h2>
+            <p><strong>Email :</strong> {{ user.mail }}</p>
+            <p><strong>Téléphone :</strong> {{ user.phone }}</p>
+            <p><strong>Pays :</strong> {{ user.status }}</p>
+            <p><strong>Rue :</strong> {{ user.street }}</p>
+            <p><strong>Numéro de rue :</strong> {{ user.num }}</p>
+            <p><strong>Code postal :</strong> {{ user.postal }}</p>
+            <p><strong>Ville :</strong> {{ user.city }}</p> 
+        </div>
+    </div>
+    {% if user.status == '3' %}
+    <div class="admin-panel">
+        <h2>Panneau Administrateur</h2>
+        <p>Gérez les utilisateurs de la plateforme :</p>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>{{ u.id_user }}</td>
+                    <td>{{ u.name_user }}</td>
+                    <td>{{ u.firstname_user }}</td>
+                    <td>{{ u.mail_user }}</td>
+                    <td>
+                        {% if u.status_user == '3' %}
+                            Administrateur
+                        {% elseif u.status == '1' %}
+                            Utilisateur
+                        {% else %}
+                            Invité
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="post" action="/?uri=Profil">
+                            <button class ="btn-edit" name="action" value="edit">Modifier</button>
+                            <button class ="btn-supr" name="action" value="supr">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    {% if user.status == '1' %}
+        <div class="user-panel">
+            <h2>Panneau Utilisateur</h2>
+            <p>Vous avez accès à des fonctionnalités utilisateur.</p>
+            <!-- Ajoutez ici les fonctionnalités réservées aux utilisateurs -->
+        </div>
+    {% endif %}
 {% endblock %}

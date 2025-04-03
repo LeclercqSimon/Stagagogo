@@ -5,7 +5,7 @@
 {% block content %}
 <h1 style="text-align: center; color: #333;">Entreprises qui recrutent</h1>
 <div class="container">
-    {% for company in companies %}
+    {% for company in offers %}
     <div class="card">
         <img src="img/logo_bleu.png" alt="Logo de {{ company.name_company }}">
         <h3>{{ company.name_company }}</h3>
@@ -15,7 +15,7 @@
     {% endfor %}
 </div>
 
-{% for company in companies %}
+{% for company in offers %}
 <div class="company-container" id="modal-{{ company.id_company }}"> 
     <div class="company-card">
         <span class="company-close" onclick="closeModal('modal-{{ company.id_company }}')">&times;</span>
@@ -29,6 +29,13 @@
             <p><strong>Email :</strong> <a href="mailto:{{ company.mail_company }}">{{ company.mail_company }}</a></p>
             <p><strong>Téléphone :</strong> <a href="tel:{{ company.phone_company }}">{{ company.phone_company }}</a></p>
             <p><strong>SIRET :</strong> {{ company.siret_company }}</p>
+            {% if company.title_offer %}
+                <ul>
+                    <li>{{ company.title_offer }}</li>
+                </ul>
+            {% else %}
+                <p>Aucune offre de stage disponible.</p>
+            {% endif %}
         </div>
     </div>
 </div>

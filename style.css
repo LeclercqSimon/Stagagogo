@@ -4,7 +4,10 @@ body{
     padding-top: 50px;
 }
 
-
+.title{
+    text-align: center;
+    margin-top : 50px;
+}
 .logo img {
     height: 60px; 
 }
@@ -319,7 +322,7 @@ input {
     align-items: center;
 }
 
-/* ---------------------------------------------------------------------------------------------- */
+/* -----------------------------------------companymodal----------------------------------------- */
 /* Styles de base */
 .company-container {
     display: none; /* Caché par défaut */
@@ -388,4 +391,210 @@ input {
 
 .company-body a:hover {
     text-decoration: underline;
+}
+
+
+/*-----------------------------------------------offers post------------------------------------------------------------*/
+
+.modal-post {
+    display: none; /* Masqué par défaut */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    z-index: 1000;
+}
+
+.modal-post form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px; /* Limite la largeur maximale */
+    text-align: center; /* Centre le texte */
+}
+
+.modal-post .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-post .close:hover {
+    color: #709fdc;
+}
+/*----------------------------------profil post------------------------------------------------------------*/
+/* Profil Container */
+.profil-container {
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center; /* Centre verticalement */
+    min-height: 80vh; /* Prend au moins 80% de la hauteur de la fenêtre */
+    background-color: #f9f9f9; /* Couleur de fond légère */
+    padding: 20px;
+}
+
+/* Profil Card */
+.profil-card {
+    background-color: #ffffff; /* Fond blanc */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    padding: 20px 30px; /* Espacement interne */
+    max-width: 500px; /* Largeur maximale */
+    width: 100%; /* Prend toute la largeur disponible */
+    text-align: center; /* Centre le texte */
+    font-family: Arial, sans-serif; /* Police moderne */
+    color: #333; /* Couleur du texte */
+}
+
+/* Titre du profil */
+.profil-card h2 {
+    font-size: 24px; /* Taille du titre */
+    color: #071739; /* Couleur principale */
+    margin-bottom: 20px; /* Espacement sous le titre */
+}
+
+/* Informations du profil */
+.profil-card p {
+    font-size: 16px; /* Taille du texte */
+    margin: 10px 0; /* Espacement vertical */
+    line-height: 1.5; /* Hauteur de ligne */
+}
+
+/* Texte en gras */
+.profil-card p strong {
+    color: #555; /* Couleur légèrement plus sombre */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profil-card {
+        padding: 15px 20px; /* Réduit l'espacement interne sur les petits écrans */
+    }
+
+    .profil-card h2 {
+        font-size: 20px; /* Réduit la taille du titre sur les petits écrans */
+    }
+
+    .profil-card p {
+        font-size: 14px; /* Réduit la taille du texte sur les petits écrans */
+    }
+}
+/*----------------------------------------------- admin------------------------------------------------------------*/
+/* Table des utilisateurs */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.user-table th, .user-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.user-table th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+.user-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.user-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Boutons d'action */
+.btn-edit, .btn-supr {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.butn-edit:hover, .btn-supr:hover {
+    opacity: 0.8;
+}
+
+.btn-edit {
+    background-color: #4CAF50; /* Vert pour modifier */
+    color: white;
+}
+
+.btn-supr {
+    background-color: #f44336; /* Rouge pour supprimer */
+    color: white;
+}
+
+/* ------------------------ Menu Burger (Mobile) ------------------------ */
+.menu-burger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+}
+
+.menu-burger div {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    transition: 0.3s;
+}
+
+/* ------------------------ Responsive ------------------------ */
+@media (max-width: 768px) {
+    .menu-burger {
+        display: flex;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .navbar ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #709fdc;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .navbar ul.active {
+        display: flex;
+    }
+
+    .navbar ul li {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 10px;
+    }
 }

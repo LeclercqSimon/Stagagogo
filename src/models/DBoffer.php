@@ -35,8 +35,29 @@ class DBoffer{
     }
 
     function getOffers(){
-        $stmt = $this->pdo->prepare("SELECT * FROM offer");
+        $stmt = $this->pdo->prepare("SELECT * FROM offer WHERE offer_status = 'ouvert' ORDER BY publication_offer DESC");
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    function candidatesOffer($id_offer){
+        $stmt = $this->pdo->prepare("SELECT candidates_offer FROM offer WHERE id_offer = :id_offer");
+        $stmt->bindParam(':id_offer', $id_offer);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    function updateCandidates($id_offer, $nb_post){
+        $stmt = $this->pdo->prepare("UPDATE offer SET candidates_offer = :nb_post WHERE id_offer = :id_offer");
+        $stmt->bindParam(':nb_post', $nb_post);
+        $stmt->bindParam(':id_offer', $id_offer);
+        return $stmt->execute();
+    }
+
+    public function companiesOffers() {
+        $stmt = $this->pdo->prepare("SELECT * FROM offer o INNER JOIN company c ON o.id_company = c.id_company WHERE offer_status = 'ouvert'");
+        $stmt->execute();
+        $companies = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $companies;
     }
 }

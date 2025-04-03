@@ -39,4 +39,33 @@ class DBcompany{
         $stmt->bindParam(':siret', $siret);
         return $stmt->execute();
     }
+
+    public function getCompaniesWithOffers() {
+        $stmt = $this->pdo->prepare("SELECT * FROM company c LEFT JOIN offer o ON c.id_company = o.id_company ORDER BY c.id_company");
+        $stmt->execute();
+        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    
+        // Regrouper les offres par entreprise
+        $companies = [];
+        foreach ($results as $row) {
+            $companyId = $row['id_company'];
+            if (!isset($companies[$companyId])) {
+                $companies[$companyId] = [
+                    'id_company' => $row['id_company'],
+                    'name_company' => $row['name_company'],
+                    'description_company' => $row['description_company'],
+                    'city_company' => $row['city_company'],
+                    'sector_company' => $row['sector_company'],
+                    'mail_company' => $row['mail_company'],
+                    'phone_company' => $row['phone_company'],
+                    'siret_company' => $row['siret_company'],
+                    'offers' => [] // Initialiser un tableau pour les offres
+                ];
+            }
+            if ($row['title_offer']) {
+                $companies[$companyId]['offers'][] = $row['title_offer'];
+            }
+        }
+        return array_values($companies); // Retourner un tableau indexé
+    }
 }

@@ -16,13 +16,6 @@ class DBuser{
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
     
-    public function getUser($mail, $password){
-        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE mail_user = :mail AND pwd_user = :password");
-        $stmt->bindParam(':mail', $mail);
-        $stmt->bindParam(':password', $password);
-        $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
-    }
     public function insertUser($name, $firstname, $mail, $pwd, $phone, $status, $id_address){
         $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
         $stmt = $this->pdo->prepare("INSERT INTO user (name_user, firstname_user, mail_user, pwd_user, phone_user, status_user, id_address) VALUES (:name, :firstname, :mail, :pwd, :phone, :status, :id_address)");
@@ -46,8 +39,30 @@ class DBuser{
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         if ($result && password_verify($pwd, $result['pwd_user'])) {
             echo "L'utilisateur a saisi le bon mot de passe. ✅";
+            return true;
         } else {
             echo "L'utilisateur n'a pas saisi le bon mot de passe. ❌";
+            return false;
         }
+    }
+
+    public function getUser($mail){
+        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE mail_user = :mail");
+        $stmt->bindParam(':mail',$mail);
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function getAllUser(){
+        $stmt = $this->pdo->prepare("SELECT * FROM user");
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function deleteUser($id_user){
+        $stmt = $this->pdo->prepare("DELETE FROM user WHERE id_user = :id_user");
+        $stmt->bindParam(':id_user', $id_user);
+        return $stmt->execute();
     }
 }

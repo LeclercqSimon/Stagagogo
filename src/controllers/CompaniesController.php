@@ -2,6 +2,7 @@
 namespace App\Controllers;
 use App\Models\DBcompany;
 use App\Models\DBaddress;
+use App\Models\DBoffer;
 class CompaniesController extends Controller{
 
     public function __construct($templateEngine) {
@@ -12,8 +13,9 @@ class CompaniesController extends Controller{
 
     public function CompaniesPage() {
         echo $this->templateEngine->render('companies.twig.html', [
-            'companies' => $this->model->getCompanies(),
+            //'companies' => $this->model->getCompanies(),
             'address' => $this->model2->addressCompany($this->model->getCompanies()),
+            'offers' => $this->model->getCompaniesWithOffers()
         ]);
     }
 
@@ -25,15 +27,6 @@ class CompaniesController extends Controller{
             } else {
                 $company['address'] = null;
             }
-        }
-    }
-
-    public function getCompany($companyId) {
-        $company = $this->model->getCompany($companyId);
-        if ($company) {
-            echo json_encode($company);
-        } else {
-            echo json_encode(['error' => 'Company not found']);
         }
     }
 }

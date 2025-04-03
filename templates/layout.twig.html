@@ -8,7 +8,11 @@
 </head>
 <header>
     <nav class="navbar">
-
+        <div class="menu-burger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <div class="logo">
             <a href="/"><img src="img/logo.png" alt="Logo Stagagogo"></a>
         </div>
@@ -25,7 +29,7 @@
                 <div class="modal-content">
                     <span class="close" onclick="closeModalLogin()">&times;</span>
                     <h2>Connexion</h2>
-                    <form method="POST" action="/" onsubmit="submitForm(event)">
+                    <form method="POST" action="/?uri=Log" onsubmit="submitForm(event)">
                         <input type="hidden" name="action" value="login">
                         <input type="email" id="login-mail" name="mail" placeholder="Email" required>
                         <input type="pwd" id="login-pwd" name ="pwd" placeholder="Mot de passe" required>
@@ -53,7 +57,7 @@
                     <!-- Étape 2 -->
                     <div id="signup-step2" style="display: none;">
                         <h2>Inscription - Étape 2</h2>
-                        <form id="form-step2" method="POST" action="/">
+                        <form id="form-step2" method="POST" action="/?uri=Log">
                             <button type="button"  onclick="goToStep1()">Retour</button>
                             <input type="hidden" name="action" value="signup">
                             <input type="hidden" id="hidden-firstname" name="firstname">

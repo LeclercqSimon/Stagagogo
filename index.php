@@ -9,6 +9,7 @@ use App\Controllers\OfferController;
 use App\Controllers\ProfilController;
 use App\Controllers\WishlistController;
 use App\Controllers\FooterController;
+use App\Controllers\LogController;
 
 $loader = new \Twig\Loader\FilesystemLoader('templates');
 $twig = new \Twig\Environment($loader, [
@@ -26,12 +27,6 @@ switch ($uri) {
     case '/':
         $controller = new HomeController($twig);
         $controller->HomePage();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {
-            $controller->Login();
-        }
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'signup') {
-            $controller->Signup();
-        }
         break;
     case 'Companies':
         $controller = new CompaniesController($twig);
@@ -44,6 +39,9 @@ switch ($uri) {
     case 'Offer':
         $controller = new OfferController($twig);
         $controller->OfferPage();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controller->Offerpost($_POST['post_id']);
+        }
         break;
     case 'Wishlist':
         $controller = new WishlistController($twig);
@@ -64,6 +62,10 @@ switch ($uri) {
     case 'CGU':
         $controller = new FooterController($twig);
         $controller->CGUPage();
+        break;
+    case 'Log':
+        $controller = new LogController($twig);
+        $controller->LogPage();
         break;
     default:
         header("HTTP/1.0 404 Not Found");
