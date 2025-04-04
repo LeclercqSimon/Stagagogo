@@ -46,12 +46,16 @@ class DBuser{
         }
     }
 
-    public function getUser($mail){
-        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE mail_user = :mail");
-        $stmt->bindParam(':mail',$mail);
+    public function getUser($mail) {
+        $stmt = $this->pdo->prepare("
+            SELECT u.*, a.num_address, a.street_address, a.postal_address, a.city_address, a.country_address
+            FROM user u
+            LEFT JOIN address a ON u.id_address = a.id_address
+            WHERE u.mail_user = :mail
+        ");
+        $stmt->bindParam(':mail', $mail);
         $stmt->execute();
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        return $result;
+        return $stmt->fetch(\PDO::FETCH_ASSOC); // Retourne toutes les colonnes utilisateur et adresse
     }
 
     public function getAllUser(){
@@ -59,10 +63,10 @@ class DBuser{
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
-
-    public function deleteUser($id_user){
+    
+    public function deleteUserById($userId) {
         $stmt = $this->pdo->prepare("DELETE FROM user WHERE id_user = :id_user");
-        $stmt->bindParam(':id_user', $id_user);
+        $stmt->bindParam(':id_user', $userId, \PDO::PARAM_INT);
         return $stmt->execute();
     }
 }

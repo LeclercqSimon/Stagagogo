@@ -13,9 +13,7 @@ class CompaniesController extends Controller{
 
     public function CompaniesPage() {
         echo $this->templateEngine->render('companies.twig.html', [
-            //'companies' => $this->model->getCompanies(),
-            'address' => $this->model2->addressCompany($this->model->getCompanies()),
-            'offers' => $this->model->getCompaniesWithOffers()
+            'companies' => $this->model->getCompanies()
         ]);
     }
 

@@ -7,7 +7,7 @@ class LogController extends Controller{
     
     public function __construct($templateEngine) {
         $this->model = new DBuser();
-        $this->model2 = new DBaddress();
+        $this->model2 = null;
         $this->templateEngine = $templateEngine;
     }
 
@@ -18,13 +18,18 @@ class LogController extends Controller{
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'signup') {
             $this->Signup();
         }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'disconnect') {
+            $this->logout();
+        }
     }
 
     public function Login(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail = isset($_POST['mail']) ? trim($_POST['mail']) : null;
             $pwd = isset($_POST['pwd']) ? trim($_POST['pwd']) : null;
-            $user = $this->model->getUser($mail);     
+            
+            $user = $this->model->getUser($mail);   
+
             $isValid = $this->model->verif($mail, $pwd);
             if ($isValid) {
                 session_start();
@@ -34,7 +39,7 @@ class LogController extends Controller{
                 header('Location: /?uri=/');
                 exit();
             } else {
-                echo "Identifiants incorrects.";
+                throw new \Exception("Identifiants incorrects.");
             }
         }
     }

@@ -6,13 +6,21 @@
     <div class="profil-container">
         <div class="profil-card" data-status="{{ user.status }}">
             <h2>{{ user.name }} {{ user.firstname }}</h2>
-            <p><strong>Email :</strong> {{ user.mail }}</p>
-            <p><strong>Téléphone :</strong> {{ user.phone }}</p>
-            <p><strong>Pays :</strong> {{ user.status }}</p>
-            <p><strong>Rue :</strong> {{ user.street }}</p>
-            <p><strong>Numéro de rue :</strong> {{ user.num }}</p>
-            <p><strong>Code postal :</strong> {{ user.postal }}</p>
-            <p><strong>Ville :</strong> {{ user.city }}</p> 
+            <p>Email : {{ user.mail }}</p>
+            <p>Téléphone : {{ user.phone }}</p>
+            <p>Statut : 
+                {% if user.status == '3' %}
+                    Administrateur
+                {% elseif user.status == '1' %}
+                    Utilisateur
+                {% else %}
+                    Pilote
+                {% endif %}
+            </p>
+            <p>Rue : {{ user.num_address }} {{ user.street_address }}</p>
+            <p>Ville : {{ user.city_address }}</p>
+            <p>Code Postal : {{ user.postal_address }}</p>
+            <p>Pays : {{ user.country_address }}</p>
         </div>
     </div>
     {% if user.status == '3' %}
@@ -26,6 +34,7 @@
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Email</th>
+                    <th>Phone</th>
                     <th>Statut</th>
                     <th>Actions</th>
                 </tr>
@@ -37,19 +46,21 @@
                     <td>{{ u.name_user }}</td>
                     <td>{{ u.firstname_user }}</td>
                     <td>{{ u.mail_user }}</td>
+                    <td>{{ u.pwd_user }}</td>
                     <td>
                         {% if u.status_user == '3' %}
                             Administrateur
-                        {% elseif u.status == '1' %}
+                        {% elseif u.status_user == '1' %}
                             Utilisateur
                         {% else %}
-                            Invité
+                            Pilote
                         {% endif %}
                     </td>
                     <td>
                         <form method="post" action="/?uri=Profil">
-                            <button class ="btn-edit" name="action" value="edit">Modifier</button>
-                            <button class ="btn-supr" name="action" value="supr">Supprimer</button>
+                            <input type="hidden" name="id_user" value="{{ u.id_user }}">
+                            <button class="btn-edit" name="action" value="edit">Modifier</button>
+                            <button class="btn-supr" name="action" value="supr">Supprimer</button>
                         </form>
                     </td>
                 </tr>
@@ -58,11 +69,63 @@
         </table>
     </div>
     {% endif %}
-    {% if user.status == '1' %}
-        <div class="user-panel">
-            <h2>Panneau Utilisateur</h2>
-            <p>Vous avez accès à des fonctionnalités utilisateur.</p>
-            <!-- Ajoutez ici les fonctionnalités réservées aux utilisateurs -->
-        </div>
+    {% if user.status == '2' %}
+    <div class="add-offer-panel">
+        <h2>Ajouter une nouvelle offre</h2>
+        <form method="POST" action="/?uri=Profil" class="add-offer-form">
+            <h3>Informations sur l'entreprise</h3>
+            <label for="company_name">Nom de l'entreprise :</label>
+            <input type="text" id="company_name" name="company_name" required>
+    
+            <label for="company_city">Ville :</label>
+            <input type="text" id="company_city" name="company_city" required>
+    
+            <label for="company_sector">Secteur :</label>
+            <input type="text" id="company_sector" name="company_sector" required>
+    
+            <label for="company_email">Email :</label>
+            <input type="email" id="company_email" name="company_email" required>
+    
+            <label for="company_phone">Téléphone :</label>
+            <input type="text" id="company_phone" name="company_phone" required>
+
+            <label for="company_phone">Description de l'entreprise :</label>
+            <textarea id="company_description" id="company_description" name="company_description" required></textarea>
+    
+            <label for="company_siret">SIRET :</label>
+            <input type="text" id="company_siret" name="company_siret" required>
+            
+            <h3>Adresse de l'entreprise</h3>
+            <label for="company_num_address">Numéro :</label>
+            <input type="text" id="company_num_address" name="company_num_address" required>
+
+            <label for="company_street_address">Rue :</label>
+            <input type="text" id="company_street_address" name="company_street_address" required>
+
+            <label for="company_postal_address">Code postal :</label>
+            <input type="text" id="company_postal_address" name="company_postal_address" required>
+
+            <label for="company_country_address">Pays :</label>
+            <input type="text" id="company_country_address" name="company_country_address" required>
+            
+            <h3>Informations sur l'offre</h3>
+            <label for="offer_title">Titre de l'offre :</label>
+            <input type="text" id="offer_title" name="offer_title" required>
+    
+            <label for="offer_description">Description :</label>
+            <textarea id="offer_description" name="offer_description" required></textarea>
+    
+            <label for="offer_salary">Salaire :</label>
+            <input type="number" id="offer_salary" name="offer_salary" required>
+    
+            <label for="offer_contract">Type de contrat :</label>
+            <input type="text" id="offer_contract" name="offer_contract" required>
+    
+            <label for="offer_sector">Secteur :</label>
+            <input type="text" id="offer_sector" name="offer_sector" required>
+    
+            <button type="submit" name="action" value="add_offer">Ajouter l'offre</button>
+        </form>
+    </div>
     {% endif %}
 {% endblock %}

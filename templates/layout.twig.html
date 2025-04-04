@@ -24,6 +24,10 @@
             <li><a href="/?uri=Wishlist">Wish-list</a></li>
         </ul>
         <div class="auth-buttons">
+            <form method="POST" action="/?uri=Log">
+                <input type="hidden" name="action" value="disconnect">
+                <button type="submit" class="btn-signup">Déconnecter</button>
+            </form>
             <button class="btn-login" onclick='openModalLogin()'>Se connecter</button>
             <div id="loginModal" class="modal">
                 <div class="modal-content">

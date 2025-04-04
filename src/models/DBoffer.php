@@ -60,4 +60,7 @@ class DBoffer{
         $companies = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $companies;
     }
+
+
+
 }

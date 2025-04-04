@@ -35,6 +35,7 @@ switch ($uri) {
     case 'Profil':
         $controller = new ProfilController($twig);
         $controller->ProfilPage();
+        $controller->handleAddOffer();
         break;
     case 'Offer':
         $controller = new OfferController($twig);

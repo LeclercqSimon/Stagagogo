@@ -1,9 +1,36 @@
 {% extends 'layout.twig.html' %}
 
 {% block title %}Accueil - Stagagogo{% endblock %}
-{% block content %}
-    <h2>Bienvenue sur mon site !</h2>
-    <p>Ceci est la page d'accueil.</p>
-    <p>{{ message }}</p>
 
+{% block content %}
+    <div class="home-container">
+        <!-- Section principale avec le logo et le titre -->
+        <div class="hero-section">
+            <img src="img/logo_bleu.png" alt="Logo bleu Stagagogo" class="logo_bleu">
+            <h1> Trouvez votre stage en un clin d'œil !</h1>
+        </div>
+
+        <!-- Section de description -->
+        <div class="description">
+            <p>La recherche de stage peut être un véritable parcours du combattant. Entre les offres éparpillées sur différents sites, les candidatures sans réponse et le manque de visibilité sur les entreprises qui recrutent régulièrement, il est parfois difficile de s’y retrouver. C’est là qu’intervient Stagagogo !</p>
+        </div>
+
+        <!-- Section "Qu'est-ce que Stagagogo ?" -->
+        <div class="section">
+            <h2>Qu’est-ce que Stagagogo ?</h2>
+            <p>Stagagogo est une plateforme web conçue pour simplifier et optimiser la recherche de stage des étudiants. Grâce à notre site, vous pouvez :</p>
+            <ul>
+                <li>Consulter des offres de stage triées par compétences et secteurs d’activité.</li>
+                <li>Découvrir les entreprises qui recrutent et consulter les avis des anciens stagiaires.</li>
+                <li>Créer et gérer votre profil pour postuler facilement aux offres qui vous intéressent.</li>
+                <li>Suivre vos candidatures et conserver vos offres préférées dans une wishlist.</li>
+            </ul>
+        </div>
+
+        <!-- Section "Pour qui ?" -->
+        <div class="section">
+            <h2>Pour qui ?</h2>
+            <p>Stagagogo s’adresse aux étudiants en quête de stage, aux entreprises cherchant des talents, ainsi qu’aux pilotes de promotion souhaitant suivre l’avancement des recherches de leurs étudiants.</p>
+        </div>
+    </div>
 {% endblock %}
