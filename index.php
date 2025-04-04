@@ -22,55 +22,108 @@ if (isset($_GET['uri'])) {
     $uri = '/';
 }
 
+try {
+    switch ($uri) {
+        case '/':
+            try {
+                $controller = new HomeController($twig);
+                $controller->HomePage();
+            } catch (\Exception $e) {
+                echo "Erreur lors de l'affichage de la page d'accueil : " . $e->getMessage();
+            }
+            break;
 
-switch ($uri) {
-    case '/':
-        $controller = new HomeController($twig);
-        $controller->HomePage();
-        break;
-    case 'Companies':
-        $controller = new CompaniesController($twig);
-        $controller->CompaniesPage();
-        break;
-    case 'Profil':
-        $controller = new ProfilController($twig);
-        $controller->ProfilPage();
-        $controller->handleAddOffer();
-        break;
-    case 'Offer':
-        $controller = new OfferController($twig);
-        $controller->OfferPage();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $controller->Offerpost($_POST['post_id']);
-        }
-        break;
-    case 'Wishlist':
-        $controller = new WishlistController($twig);
-        $controller->WishlistPage();
-        break;
-    case 'About':
-        $controller = new FooterController($twig);
-        $controller->AboutPage();
-        break;
-    case 'Cookies':
-        $controller = new FooterController($twig);
-        $controller->CookiesPage();
-        break;
-    case 'Confidentialite':
-        $controller = new FooterController($twig);
-        $controller->ConfidentialitePage();
-        break;
-    case 'CGU':
-        $controller = new FooterController($twig);
-        $controller->CGUPage();
-        break;
-    case 'Log':
-        $controller = new LogController($twig);
-        $controller->LogPage();
-        break;
-    default:
-        header("HTTP/1.0 404 Not Found");
-        echo '404 Not Found';
-        return;
-        break;
+        case 'Companies':
+            try {
+                $controller = new CompaniesController($twig);
+                $controller->CompaniesPage();
+            } catch (\Exception $e) {
+                echo "Erreur lors de l'affichage de la page des entreprises : " . $e->getMessage();
+            }
+            break;
+
+        case 'Profil':
+            try {
+                $controller = new ProfilController($twig);
+                $controller->ProfilPage();
+                $controller->handleAddOffer();
+            } catch (\Exception $e) {
+                echo "Erreur lors de l'affichage ou de la gestion de la page Profil : " . $e->getMessage();
+            }
+            break;
+
+        case 'Offer':
+            try {
+                $controller = new OfferController($twig);
+                $controller->OfferPage();
+                if (isset($_GET['cv'])) {
+                    $id_offer = $_GET['cv'];
+                    $controller->uploadfile();
+                }
+            } catch (\Exception $e) {
+                echo "Erreur lors de l'affichage ou de la gestion de la page des offres : " . $e->getMessage();
+            }
+            break;
+
+        case 'Wishlist':
+            try {
+                $controller = new WishlistController($twig);
+                $controller->WishlistPage();
+            } catch (\Exception $e) {
+                echo "Erreur lors de l'affichage de la page Wishlist : " . $e->getMessage();
+            }
+            break;
+
+        case 'About':
+            try {
+                $controller = new FooterController($twig);
+                $controller->AboutPage();
+            } catch (\Exception $e) {
+                echo "Erreur lors de l'affichage de la page À propos : " . $e->getMessage();
+            }
+            break;
+
+        case 'Cookies':
+            try {
+                $controller = new FooterController($twig);
+                $controller->CookiesPage();
+            } catch (\Exception $e) {
+                echo "Erreur lors de l'affichage de la page Cookies : " . $e->getMessage();
+            }
+            break;
+
+        case 'Confidentialite':
+            try {
+                $controller = new FooterController($twig);
+                $controller->ConfidentialitePage();
+            } catch (\Exception $e) {
+                echo "Erreur lors de l'affichage de la page Confidentialité : " . $e->getMessage();
+            }
+            break;
+
+        case 'CGU':
+            try {
+                $controller = new FooterController($twig);
+                $controller->CGUPage();
+            } catch (\Exception $e) {
+                echo "Erreur lors de l'affichage de la page CGU : " . $e->getMessage();
+            }
+            break;
+
+        case 'Log':
+            try {
+                $controller = new LogController($twig);
+                $controller->LogPage();
+            } catch (\Exception $e) {
+                echo "Erreur lors de la gestion de la page Log : " . $e->getMessage();
+            }
+            break;
+
+        default:
+            header("HTTP/1.0 404 Not Found");
+            echo '404 Not Found';
+            break;
+    }
+} catch (\Exception $e) {
+    echo "Une erreur inattendue est survenue : " . $e->getMessage();
 }

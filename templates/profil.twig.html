@@ -3,6 +3,7 @@
 {% block title %}Profil - Stagagogo{% endblock %}
 
 {% block content %}
+{% if user.status == '3' or user.status == '2' or user.status == '1' %}
     <div class="profil-container">
         <div class="profil-card" data-status="{{ user.status }}">
             <h2>{{ user.name }} {{ user.firstname }}</h2>
@@ -128,4 +129,9 @@
         </form>
     </div>
     {% endif %}
+{% else %}
+    <div class="profil-container">
+        <h2>Accès refusé, vous devez vous connectez pour accéder à cette page.</h2>
+    </div>
+{% endif %}
 {% endblock %}

@@ -475,20 +475,6 @@ input {
     color: #555; /* Couleur légèrement plus sombre */
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .profil-card {
-        padding: 15px 20px; /* Réduit l'espacement interne sur les petits écrans */
-    }
-
-    .profil-card h2 {
-        font-size: 20px; /* Réduit la taille du titre sur les petits écrans */
-    }
-
-    .profil-card p {
-        font-size: 14px; /* Réduit la taille du texte sur les petits écrans */
-    }
-}
 /*----------------------------------------------- admin------------------------------------------------------------*/
 /* Table des utilisateurs */
 .user-table {
