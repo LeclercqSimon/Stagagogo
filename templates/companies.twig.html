@@ -4,6 +4,9 @@
 
 {% block content %}
 <h1 class="title">ENTREPRISES QUI RECRUTENT</h1>
+<input type="text" id="searchInputCompanies" placeholder="Rechercher une entreprise..." onkeyup="genericFilter('searchInputCompanies', '.card', [], 'noResultCompanies')" class="search-bar">
+<p id="noResultCompanies" style="display:none;">Aucune entreprise correspondante.</p>
+
 <div class="container">
     {% for company in companies %}
     <div class="card">
@@ -18,7 +21,7 @@
 {% for company in companies %}
 <div class="company-container" id="modal-{{ company.id_company }}"> 
     <div class="company-card">
-        <span class="company-close" onclick="closeModal('modal-{{ company.id_company }}')">&times;</span>
+        <span class="close" onclick="closeModal('modal-{{ company.id_company }}')">&times;</span>
         <div class="company-header">
             <h2>{{ company.name_company }}</h2>
         </div>

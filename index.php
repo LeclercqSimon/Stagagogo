@@ -3,7 +3,6 @@
 require "vendor/autoload.php";
 
 use App\Controllers\HomeController;
-use App\Controllers\CGUController;
 use App\Controllers\CompaniesController;
 use App\Controllers\OfferController;
 use App\Controllers\ProfilController;
@@ -21,6 +20,22 @@ if (isset($_GET['uri'])) {
 } else {
     $uri = '/';
 }
+
+error_log("Requested URI: " . $_SERVER['REQUEST_URI']); // Log l'URL demandée
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && preg_match('#^/wishlist/add/(\d+)$#', $_SERVER['REQUEST_URI'], $matches)) {
+    $controller = new WishlistController($twig);
+    $controller->addToWishlist();
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && preg_match('#^/wishlist/remove/(\d+)$#', $_SERVER['REQUEST_URI'], $matches)) {
+    $controller = new WishlistController($twig);
+    $controller->removeFromWishlist();
+    exit();
+}
+
+
 
 try {
     switch ($uri) {
@@ -45,8 +60,8 @@ try {
         case 'Profil':
             try {
                 $controller = new ProfilController($twig);
-                $controller->ProfilPage();
                 $controller->handleAddOffer();
+                $controller->ProfilPage();
             } catch (\Exception $e) {
                 echo "Erreur lors de l'affichage ou de la gestion de la page Profil : " . $e->getMessage();
             }
@@ -65,14 +80,14 @@ try {
             }
             break;
 
-        case 'Wishlist':
-            try {
-                $controller = new WishlistController($twig);
-                $controller->WishlistPage();
-            } catch (\Exception $e) {
-                echo "Erreur lors de l'affichage de la page Wishlist : " . $e->getMessage();
-            }
-            break;
+            case 'Wishlist':
+                try {
+                    $controller = new WishlistController($twig);
+                    $controller->WishlistPage();
+                } catch (\Exception $e) {
+                    echo "Erreur lors de l'affichage de la page Wishlist : " . $e->getMessage();
+                }
+                break;
 
         case 'About':
             try {

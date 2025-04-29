@@ -7,7 +7,7 @@ class DBcompany {
 
     public function __construct() {  
         try {
-            $this->pdo = new \PDO('mysql:host=localhost;dbname=stagagogo', 'root', '');
+            $this->pdo = new \PDO('mysql:host=localhost;dbname=stagagogo3', 'root', '');
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION); // Active les exceptions PDO
         } catch (\PDOException $e) {
             echo "Erreur de connexion à la base de données : " . $e->getMessage();
@@ -50,24 +50,28 @@ class DBcompany {
         }
     }
 
-    public function insertCompany($name, $city, $sector, $mail, $phone, $description, $siret) {
+    public function insertCompany($name, $city, $sector, $email, $phone, $description, $siret, $addressId) {
         try {
             $stmt = $this->pdo->prepare("
-                INSERT INTO company (name_company, city_company, sector_company, mail_company, phone_company, description_company, siret_company) 
-                VALUES (:name, :city, :sector, :mail, :phone, :description, :siret)
+                INSERT INTO company (name_company, city_company, sector_company, mail_company, phone_company, description_company, siret_company, id_address)
+                VALUES (:name, :city, :sector, :email, :phone, :description, :siret, :addressId)
             ");
+            
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':city', $city);
             $stmt->bindParam(':sector', $sector);
-            $stmt->bindParam(':mail', $mail);
+            $stmt->bindParam(':email', $email);
             $stmt->bindParam(':phone', $phone);
             $stmt->bindParam(':description', $description);
             $stmt->bindParam(':siret', $siret);
+            $stmt->bindParam(':addressId', $addressId);
             $stmt->execute();
-            return true;
+            
+            return $this->pdo->lastInsertId();
         } catch (\PDOException $e) {
             echo "Erreur lors de l'insertion de l'entreprise : " . $e->getMessage();
             return false;
         }
     }
+    
 }

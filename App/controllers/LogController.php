@@ -1,13 +1,16 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\DBuser;
 use App\Models\DBaddress;
 use App\Controllers\Controller;
 
-class LogController extends Controller {
-    
-    public function __construct($templateEngine) {
+class LogController extends Controller
+{
+
+    public function __construct($templateEngine)
+    {
         try {
             $this->model = new DBuser();
             $this->model2 = new DBaddress();
@@ -18,7 +21,8 @@ class LogController extends Controller {
         }
     }
 
-    public function LogPage() {
+    public function LogPage()
+    {
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {
                 $this->Login();
@@ -34,17 +38,19 @@ class LogController extends Controller {
         }
     }
 
-    public function Login() {
+    public function Login()
+    {
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail = isset($_POST['mail']) ? trim($_POST['mail']) : null;
                 $pwd = isset($_POST['pwd']) ? trim($_POST['pwd']) : null;
 
-                $user = $this->model->getUser($mail);   
+                $user = $this->model->getUser($mail);
                 $isValid = $this->model->verif($mail, $pwd);
-
                 if ($isValid) {
-                    session_start();
+                    if (session_status() === PHP_SESSION_NONE) {
+                        session_start();
+                    }
                     foreach ($user as $key => $value) {
                         $_SESSION[$key] = $value;
                     }
@@ -59,7 +65,8 @@ class LogController extends Controller {
         }
     }
 
-    public function Signup() {
+    public function Signup()
+    {
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $name = isset($_POST['name']) ? trim($_POST['name']) : null;
@@ -73,8 +80,27 @@ class LogController extends Controller {
                 $number = isset($_POST['num']) ? trim($_POST['num']) : null;
                 $street = isset($_POST['street']) ? trim($_POST['street']) : null;
 
-                $this->model2->insertAddress($number, $street, $country, $postalcode, $city);
-                $this->model->insertUser($name, $firstname, $mail, $pwd, $phone, 1, $this->model2->lastadress());
+                // Vérification que les champs obligatoires sont remplis
+                if (empty($name) || empty($firstname) || empty($mail) || empty($pwd) || empty($phone)) {
+                    throw new \Exception("Tous les champs obligatoires doivent être remplis.");
+                }
+
+                // Hashage sécurisé du mot de passe
+                $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+
+                $idAddress = $this->model2->insertAddress($number, $street, $country, $postalcode, $city);
+                if (!$idAddress) {
+                    throw new \Exception("Erreur lors de l'insertion de l'adresse.");
+                }
+
+                // Insertion de l'utilisateur
+                $success = $this->model->insertUser($name, $firstname, $mail, $hashedPwd, $phone, 1, $idAddress);
+
+                if (!$success) {
+                    throw new \Exception("Erreur lors de l'insertion de l'utilisateur !");
+                }
+
+                // Redirection après inscription
                 header('Location: /?uri=/');
                 exit();
             }
@@ -83,13 +109,16 @@ class LogController extends Controller {
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         try {
-            session_start();
-            session_unset(); // Supprime toutes les variables de session
-            session_destroy(); // Détruit la session
-            header('Location: /?uri=/'); // Redirige vers la page d'accueil
-            exit();
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+                session_unset(); // Supprime toutes les variables de session
+                session_destroy(); // Détruit la session
+                header('Location: /?uri=/'); // Redirige vers la page d'accueil
+                exit();
+            }
         } catch (\Exception $e) {
             // Gestion des erreurs lors de la déconnexion
             echo "Erreur lors de la déconnexion : " . $e->getMessage();

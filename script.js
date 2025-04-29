@@ -1,20 +1,23 @@
-function openModalLogin() {
-    document.getElementById("loginModal").style.display = "block";
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'flex'; // Affiche la modal
+        if (modalId === 'signupModal') {
+            document.getElementById('signup-step1').style.display = 'block';
+            document.getElementById('signup-step2').style.display = 'none';
+        }
+    } else {
+        console.error(`Modal with ID ${modalId} not found.`);
+    }
 }
 
-// Fermer la pop-up
-function closeModalLogin() {
-    document.getElementById("loginModal").style.display = "none";
-}
-
-function openModalSignup() {
-    document.getElementById('signupModal').style.display = 'block';
-    document.getElementById('signup-step1').style.display = 'block';
-    document.getElementById('signup-step2').style.display = 'none';
-}
-
-function closeModalSignup() {
-    document.getElementById('signupModal').style.display = 'none';
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none'; // Cache la modal
+    } else {
+        console.error(`Modal with ID ${modalId} not found.`);
+    }
 }
 
 function goToStep1() {
@@ -112,31 +115,6 @@ function validatePassword(password) {
     return passwordRegex.test(password);
 }
 
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'flex'; // Affiche la modal
-    } else {
-        console.error(`Modal with ID ${modalId} not found.`);
-    }
-}
-
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'none'; // Cache la modal
-    } else {
-        console.error(`Modal with ID ${modalId} not found.`);
-    }
-}
-
-function openModalPost(modalID){
-    document.getElementById(modalID).style.display = "flex";
-}
-
-function closeModalPost(modalID){
-    document.getElementById(modalID).style.display = "none";
-}
 
 function toggleMenu() {
     document.querySelector(".navbar ul").classList.toggle("active");
@@ -155,3 +133,99 @@ document.addEventListener("DOMContentLoaded", function () {
         loginForm.addEventListener("submit", validateLoginForm);
     }
 });
+
+// Fonction pour valider les cookies
+const setCookie = (n, v, d) => document.cookie = `${n}=${encodeURIComponent(v)}; path=/; expires=${new Date(Date.now() + d*864e5).toUTCString()}`;
+const getCookie = n => document.cookie.split('; ').find(row => row.startsWith(n+'='))?.split('=')[1];
+const handleCookies = accepted => {
+  setCookie('cookiesAccepted', accepted ? 'true' : 'false', 30/1440);
+  document.querySelector('.cookie-overlay').style.display = 'none';
+};
+document.addEventListener('DOMContentLoaded', () => {
+  if (!getCookie('cookiesAccepted')) {
+    document.querySelector('.cookie-overlay').style.display = 'flex';
+  }
+});
+
+
+function genericFilter(inputId, cardSelector, fieldsSelectors, noResultId) {
+    const input = document.getElementById(inputId);
+    const filter = input.value.toLowerCase();
+    const cards = document.querySelectorAll(cardSelector);
+    const noResult = document.getElementById(noResultId);
+    let found = false;
+  
+    cards.forEach(card => {
+      let combinedText = card.textContent.toLowerCase();
+  
+      if (filter.split(' ').every(word => combinedText.includes(word))) {
+        card.style.display = '';
+        found = true;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  
+    noResult.style.display = found ? 'none' : '';
+  }
+  
+
+function validatePostForm(offerId) {
+    const fileInput = document.getElementById(`cv-${offerId}`);
+    const file = fileInput.files[0];
+    if (!file) {
+        alert("Veuillez sélectionner un fichier avant de postuler.");
+        return false;
+    }
+    const allowedExtensions = /(\.pdf|\.doc|\.docx)$/i;
+    if (!allowedExtensions.exec(file.name)) {
+        alert("Veuillez télécharger un fichier au format PDF, DOC ou DOCX.");
+        fileInput.value = '';
+        return false;
+    }
+    return true;
+}
+
+function addToWishlist(offerId) {
+    console.log('Envoi de la requête POST vers : /wishlist/add/' + offerId);
+
+    fetch('/wishlist/add/' + offerId, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ offerId: offerId })
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Offre ajoutée à votre wishlist !');
+        } else {
+          alert('Erreur lors de l\'ajout à la wishlist.');
+        }
+      })
+      .catch(error => {
+        console.error('Erreur:', error);
+      });
+}
+function removeFromWishlist(id_offer) {
+    fetch('/wishlist/remove/' + id_offer, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id_offer: id_offer })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.success);
+            location.reload();
+        } else {
+            alert(data.error);
+        }
+    })
+    .catch(error => {
+        alert("Une erreur est survenue.");
+        console.error('Error:', error);
+    });
+}

@@ -4,7 +4,9 @@
 
 {% block content %}
     <h1 class="title">LISTE DES OFFRES</h1>
-    <div class="container">
+    <input type="text" id="searchInputOffers" placeholder="Rechercher une offre..." onkeyup="genericFilter('searchInputOffers', '.card', [], 'noResultOffers')" class="search-bar">
+    <p id="noResultOffers" style="display:none;">Aucune offre correspondante.</p>
+<div class="container">
         {% for offer in offers %}
         <div class="card">
             <h2>{{ offer.title_offer }} - {{ offer.name_company }}</h2>
@@ -16,19 +18,20 @@
             <p><strong>Vues :</strong> {{ offer.views_offer }}</p>
             <p><strong>Candidats :</strong> {{ offer.candidates_offer }}</p>
             <p><strong>Date de publication :</strong> {{ offer.publication_offer }}</p>
-            <button onclick="openModalPost('post-{{offer.id_offer}}')">Postuler</button>
+            <button class="btn-card" onclick="openModal('post-{{offer.id_offer}}')">Postuler</button>
+            <button class="btn-card" onclick="addToWishlist({{ offer.id_offer }})">Ajouter à la wishlist</button>
         </div>
         <div class="modal-post" id="post-{{offer.id_offer}}">
-            <form method="POST">
-                <span class="close" onclick="closeModalPost('post-{{offer.id_offer}}')">&times;</span>
-                <h2>Postuler à l'offre : {{ offer.title_offer }} - {{ offer.name_company }}</h2>
-                <form method="POST" action="/?uri=Offer" enctype="multipart/form-data">
-                    <label for="cv">Télécharger votre CV :</label>
-                    <input type="file" id="cv" name="cv" required>
-                    <button type="submit">Envoyer</button>
-                </form>
+            <form method="POST" action="/?uri=Offer" enctype="multipart/form-data" onsubmit="return validatePostForm('{{offer.id_offer}}')">
+              <span class="close" onclick="closeModal('post-{{offer.id_offer}}')">&times;</span>
+              <h2>Postuler à l'offre : {{ offer.title_offer }} - {{ offer.name_company }}</h2>
+              <label for="cv-{{offer.id_offer}}">Télécharger votre CV :</label>
+              <input type="file" id="cv-{{offer.id_offer}}" name="cv" accept=".pdf,.doc,.docx" required>
+              <button type="submit">Envoyer</button> 
             </form>
-        </div>
+          </div>
+          
         {% endfor %}
     </div>
+    
 {% endblock %}

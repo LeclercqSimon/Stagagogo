@@ -6,7 +6,7 @@ class DBaddress {
 
     public function __construct() {  
         try {
-            $this->pdo = new \PDO('mysql:host=localhost;dbname=stagagogo', 'root', '');
+            $this->pdo = new \PDO('mysql:host=localhost;dbname=stagagogo3', 'root', '');
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION); // Active les exceptions PDO
         } catch (\PDOException $e) {
             echo "Erreur de connexion à la base de données : " . $e->getMessage();
@@ -38,21 +38,13 @@ class DBaddress {
             $stmt->bindParam(':postal_address', $postal_address);
             $stmt->bindParam(':city_address', $city_address);
             $stmt->execute();
-            return true;
+            return $this->pdo->lastInsertId();
         } catch (\PDOException $e) {
             echo "Erreur lors de l'insertion de l'adresse : " . $e->getMessage();
             return false;
         }
     }
 
-    public function lastAdress() {
-        try {
-            return $this->pdo->lastInsertId();
-        } catch (\PDOException $e) {
-            echo "Erreur lors de la récupération du dernier ID inséré : " . $e->getMessage();
-            return null;
-        }
-    }
 
     public function addressCompany($tab) {
         try {

@@ -6,7 +6,7 @@ class DBnote {
 
     public function __construct() {  
         try {
-            $this->pdo = new \PDO('mysql:host=localhost;dbname=stagagogo', 'root', '');
+            $this->pdo = new \PDO('mysql:host=localhost;dbname=stagagogo3', 'root', '');
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION); // Active les exceptions PDO
         } catch (\PDOException $e) {
             echo "Erreur de connexion à la base de données : " . $e->getMessage();

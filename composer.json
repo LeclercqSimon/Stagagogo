@@ -1,14 +1,14 @@
 {
-    "name": "sim85/stagagogo",
+    "name": "nedel/stagagogo",
     "autoload": {
         "psr-4": {
-            "Sim85\\Stagagogo\\": "src/"
+            "App\\": "app/"
         }
     },
     "authors": [
         {
-            "name": "Simon",
-            "email": "simon.leclercq@viacesi.fr"
+            "name": "Eloïse",
+            "email": "eloise.nedelec@viacesi.fr"
         }
     ],
     "require": {

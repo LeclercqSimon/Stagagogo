@@ -3,7 +3,38 @@
 {% block title %}Wishlist - Stagagogo{% endblock %}
 
 {% block content %}
-    <h2>Bienvenue sur mon site !</h2>
-    <p>Ceci est la page Wishlist.</p>
+<h1>Mes offres favorites ❤️:</h1>
 
+{% if wishlist is not empty %}
+<div class="container">
+    {% for offer in wishlist %}
+    <div class="card">
+        <h2>{{ offer.title_offer }} - {{ offer.name_company }}</h2>
+        <p><strong>Description :</strong> {{ offer.descr_offer }}</p>
+        <p><strong>Salaire :</strong> {{ offer.salary_offer }}€/an</p>
+        <p><strong>Statut :</strong> {{ offer.offer_status }}</p>
+        <p><strong>Type de contrat :</strong> {{ offer.contract_offer }}</p>
+        <p><strong>Secteur :</strong> {{ offer.sector_offer }}</p>
+        <p><strong>Vues :</strong> {{ offer.views_offer }}</p>
+        <p><strong>Candidats :</strong> {{ offer.candidates_offer }}</p>
+        <p><strong>Date de publication :</strong> {{ offer.publication_offer }}</p>
+        <button class="btn-card" onclick="openModal('post-{{offer.id_offer}}')">Postuler</button>
+        <button class="btn-card" onclick="removeFromWishlist({{ offer.id_offer }})">Supprimer de la wishlist</button>
+    </div>
+    <div class="modal-post" id="post-{{offer.id_offer}}">
+        <form method="POST" action="/?uri=Offer" enctype="multipart/form-data"
+            onsubmit="return validatePostForm('{{offer.id_offer}}')">
+            <span class="close" onclick="closeModal('post-{{offer.id_offer}}')">&times;</span>
+            <h2>Postuler à l'offre : {{ offer.title_offer }} - {{ offer.name_company }}</h2>
+            <label for="cv-{{offer.id_offer}}">Télécharger votre CV :</label>
+            <input type="file" id="cv-{{offer.id_offer}}" name="cv" accept=".pdf,.doc,.docx" required>
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+
+    {% endfor %}
+</div>
+{% else %}
+<p>Vous n'avez aucune offre dans votre wishlist.</p>
+{% endif %}
 {% endblock %}

@@ -6,7 +6,7 @@ class DBoffer {
 
     public function __construct() {  
         try {
-            $this->pdo = new \PDO('mysql:host=localhost;dbname=stagagogo', 'root', '');
+            $this->pdo = new \PDO('mysql:host=localhost;dbname=stagagogo3', 'root', '');
             $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION); // Active les exceptions PDO
         } catch (\PDOException $e) {
             echo "Erreur de connexion à la base de données : " . $e->getMessage();
@@ -38,11 +38,11 @@ class DBoffer {
         }
     }
 
-    public function insertOffer($publication, $title, $description, $salary, $status, $contract, $sector, $views, $candidates) {
+    public function insertOffer($publication, $title, $description, $salary, $status, $contract, $sector, $views, $candidates, $id_company) {
         try {
             $stmt = $this->pdo->prepare("
-                INSERT INTO offer (publication_offer, title_offer, description_offer, salary_offer, status_offer, contract_offer, sector_offer, views_offer, candidates_offer) 
-                VALUES (:publication, :title, :description, :salary, :status, :contract, :sector, :views, :candidates)
+                INSERT INTO offer (publication_offer, title_offer, descr_offer, salary_offer, offer_status, contract_offer, sector_offer, views_offer, candidates_offer, id_company) 
+                VALUES (:publication, :title, :description, :salary, :status, :contract, :sector, :views, :candidates, :id_company)
             ");
             $stmt->bindParam(':publication', $publication);
             $stmt->bindParam(':title', $title);
@@ -53,7 +53,9 @@ class DBoffer {
             $stmt->bindParam(':sector', $sector);
             $stmt->bindParam(':views', $views);
             $stmt->bindParam(':candidates', $candidates);
-            return $stmt->execute();
+            $stmt->bindParam(':id_company', $id_company);
+            $stmt->execute();
+            return $this->pdo->lastInsertId();
         } catch (\PDOException $e) {
             echo "Erreur lors de l'insertion de l'offre : " . $e->getMessage();
             return false;
